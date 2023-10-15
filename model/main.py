@@ -8,7 +8,7 @@ model.load_state_dict(torch.load('mnist_model.pth'))
 model.eval()
 
 # 加载并处理图像
-image = Image.open('test_num.png').convert('L')
+image = Image.open('D:\\pyml\\model\\test_num.png').convert('L')
 transform = transforms.Compose([
     transforms.Resize((28, 28)),
     transforms.ToTensor(),
