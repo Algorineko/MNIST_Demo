@@ -5,6 +5,7 @@ from PIL import Image
 from torchvision import transforms
 from multi_nn import Net
 import io
+import torch.nn.functional as F
 import uvicorn
 
 app = FastAPI()
@@ -49,6 +50,13 @@ async def digital_recognition(image: UploadFile = File(...)):
     with torch.no_grad():
         output = model(image_tensor)
         _, predicted = torch.max(output.data, 1)
+        # 获取每个类别的概率
+        probabilities = F.softmax(output.data, dim=1)
+        probabilities = probabilities.numpy().tolist()  # 转换为列表
+        # 将概率转换为百分比
+        probabilities_percent = [format(prob * 100, '.4f') for prob in probabilities[0]]
 
-    # 返回识别结果
-    return {"message": predicted.item()}
+    # 返回识别结果和每个类别的概率百分比
+    return {"message": predicted.item(), "probabilities": probabilities_percent}
+
+# 启动进入model文件夹
