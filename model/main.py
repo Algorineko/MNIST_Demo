@@ -1,14 +1,14 @@
 import torch
 from PIL import Image
 from torchvision import transforms
-from multi_nn import Net
+from training import Net
 # 加载模型
 model = Net()
 model.load_state_dict(torch.load('mnist_model.pth'))
 model.eval()
 
 # 加载并处理图像
-image = Image.open('D:\\pyml\\model\\test_num.png').convert('L')
+image = Image.open(r'./test_num.png').convert('L')
 transform = transforms.Compose([
     transforms.Resize((28, 28)),
     transforms.ToTensor(),

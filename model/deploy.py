@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import torch
 from PIL import Image
 from torchvision import transforms
-from multi_nn import Net
+from training import Net
 import io
 import torch.nn.functional as F
 import uvicorn
@@ -23,7 +23,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Hello MNIST"}
 
 # 加载模型
 model = Net()
